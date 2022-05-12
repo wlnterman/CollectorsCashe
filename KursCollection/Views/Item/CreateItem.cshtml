@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using KursCollection.ViewModel;
+@model CollectionWithItemsViewModel
+
+<h2>Create new Item</h2>
+
+<form asp-area="" asp-controller="Item" asp-action="Create" asp-route-collectionId="@Model.CollectionId" method="post">
+
+    <div class="modal-body">
+        <div class="createMenuInput">
+            <label>Item Name:</label>
+            <input name="itemName" />
+        </div>
+        <div class="createMenuInput">
+            <label>Fix Item Tags:</label>
+            <input />
+        </div>
+        <div class="createMenuInput">
+            Add Optional Fields Here!!!!:
+            <input />
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <a class="btn btn-secondary" asp-area="" asp-controller="Item" asp-action="ShowCollectionItems">Cancel</a>
+        @*<a type="submit" class="btn btn-primary"   asp-area="" asp-controller="Collection" asp-action="ShowUserCollections">Create Collection</a>*@
+        @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+        <button type="submit" class="btn btn-primary">Create Item</button>
+    </div>
+</form>

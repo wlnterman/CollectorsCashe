@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using KursCollection.ViewModel;
+@model CollectionWithItemsViewModel; //IEnumerable<KursCollection.Models.AppUser>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@Model.CollectionName</title>
+    </head>
+
+    <body>
+        <div>
+            <div style="display: inline-block; vertical-align: top; margin: 10px;">
+                <img src="@Model.CollectionImageLink" alt="Collection image">
+            </div>
+            <div style="display:inline-block; margin:10px">
+                <h3>@Model.CollectionName collections</h3>
+                <div style="display: inline-block; margin:5px;">
+                    <p>@Model.Items.Count() items</p>
+                </div>
+                <div style="display:inline-block; margin:5px;">
+                    <p>Theme: @Model.ThemeId</p>
+                </div>
+                <div style="max-width: 300px; word-wrap: break-word;">
+                    <p style="display: inline; ">Description: @Model.CollectionDescription</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-primary" href="@Url.Action("ShowUserCollectionsUWC", "Collection", new { id = Model.UserId} )">˂- Back to collection List</a>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-primary" href="@Url.Action("CreateItem", "Item", new { collectionId = Model.CollectionId} )">Create new Item</a>
+                    <a class="btn btn-primary; fa fa-trash" href="@Url.Action("DeleteConfirmed", "Collection", new { id = Model.UserId, collectionId = Model.CollectionId} )"> Delete Collection</a>
+                    <a class="btn btn-primary; fa fa-trash" href="@Url.Action("DeleteConfirmed", "Item", new { id = 1, collectionId = Model.CollectionId} )"> Delete top Item</a>
+                    @*<button class="btn" id="update"><i class="fa fa-arrow-circle-up"> Edit Collection</i></button>*@
+                }
+            }
+            <br>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><input class="form-check-input" type="checkbox" value="" id="checkbox"> check all</th>
+                        <th>ItemId</th>
+                        <th>CollectionId</th>
+                        <th>Name</th>
+                        <th>FIX TAGS</th>
+                        <th>FIX Optional 1</th>
+                        <th>FIX Optional 2</th>
+                        <th>...</th>
+                        <th>FIX Optional 15</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td align="center"><input class="form-check-input child" type="checkbox" value="" id=@item.ItemId></td>
+                            <td>@item.ItemId </td>
+                            <td>@item.CollectionId </td>
+                            <td>@item.ItemName </td>
+                            <td>Taglist</td>
+                            <td>int 1</td>
+                            <td>text1</td>
+                            <td>Date1</td>
+                            <td>check1</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </body>
+    <script>
+        @*var currentUserId = "@ViewBag.UserId"*@
+
+        function refreshPage() {
+            location.reload(true);
+        }
+
+        $(document).ready(function () {
+            $('#checkbox').change(function () {
+                if (this.checked) {
+                    $('body input:checkbox').prop('checked', true);
+                } else {
+                    $('body input:checkbox').prop('checked', false);
+                }
+            })
+
+            $('input[type="checkbox"]').on('change', function () {
+                var all = $(':checkbox').not(document.getElementById("checkbox")).length;
+                var actives = $(':checkbox:checked').not(document.getElementById("checkbox")).length;
+
+                if (actives == all) {
+                    $('#checkbox').prop('checked', true)
+                }
+                else {
+                    $('#checkbox').prop('checked', false)
+                }
+            })
+        })
+    </script >
+</html>

@@ -1,0 +1,52 @@
+﻿@using KursCollection.ViewModel;
+@model IEnumerable<CollectionViewModel>;
+
+@{
+    ViewData["Title"] = "Your Collections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:flex;justify-content:space-between">
+    <h1>Collection List</h1>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Create  New Collection
+    </button>
+</div>
+@{
+
+}
+<table class="table table-bordered">
+    <tr>
+        <th>name</th>
+        <th>theme</th>
+        <th>joinLink</th>
+        <th>delete room</th>
+    </tr>
+    @foreach (CollectionViewModel item in @Model)
+    {
+        <tr>
+            <th>@item.CollectionName</th>
+            <th>@item.ThemeId</th>
+            @*<th><a href="@Url.Action("Room","Room", new {id = @item.RoomId })">enter</a></th>
+                <th><a href="@Url.Action("DeleteConfirmed","Room", new {id = @item.RoomId })">delete room</a></th>*@
+
+            <th>
+                <div><a href="@Url.Action("Collection","Collection", new {id = @item.CollectionId })">open</a></div>
+                <div><a href="@Url.Action("DeleteConfirmed","Collection", new {id = @item.CollectionId })">Copy link</a></div>
+            </th>
+
+            <th>
+                <div><a href="@Url.Action("Edit","Collection", new {id = @item.CollectionId })">Edit collection</a></div>
+                <div><a href="@Url.Action("DeleteConfirmed","Collection", new {id = @item.CollectionId })">delete collection</a></div>
+            </th>
+
+
+        </tr>
+    }
+</table>
+@await Html.PartialAsync("Partials/CreateRoomModal.cshtml")
+
+
+
+
