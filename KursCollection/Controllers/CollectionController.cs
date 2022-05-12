@@ -101,9 +101,9 @@ namespace KursCollection.Controllers
         [Route("{id:int}/uploadimage")]
         public async Task<IActionResult> SaveImageToServer([FromForm] IFormFile file)
         {
-            string _apiKey = Environment.GetEnvironmentVariable("CloudinaryApiKey", EnvironmentVariableTarget.Machine);
-            string _apiSecret = Environment.GetEnvironmentVariable("CloudinaryApiSecret", EnvironmentVariableTarget.Machine);
-            string _cloud = Environment.GetEnvironmentVariable("CloudinaryCloud", EnvironmentVariableTarget.Machine);
+            string _apiKey = Environment.GetEnvironmentVariable("CloudinaryApiKey");//, EnvironmentVariableTarget.Machine);
+            string _apiSecret = Environment.GetEnvironmentVariable("CloudinaryApiSecret");//, EnvironmentVariableTarget.Machine);
+            string _cloud = Environment.GetEnvironmentVariable("CloudinaryCloud");//, EnvironmentVariableTarget.Machine);
             var myAccount = new Account { ApiKey = _apiKey, ApiSecret = _apiSecret, Cloud = _cloud };
             Cloudinary _cloudinary = new Cloudinary(myAccount);
             ImageUploadResult result = null;
