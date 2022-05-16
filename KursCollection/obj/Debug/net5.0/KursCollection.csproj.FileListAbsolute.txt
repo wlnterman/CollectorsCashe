@@ -185,3 +185,7 @@ C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollect
 C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\obj\Debug\net5.0\Razor\Views\Item\OneItem.cshtml.g.cs
 C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\bin\Debug\net5.0\Npgsql.dll
 C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\obj\Debug\net5.0\Razor\Views\Collection\EditCollection.cshtml.g.cs
+C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\bin\Debug\net5.0\libman.json
+C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\obj\Debug\net5.0\Razor\Views\Collection\AllCollectionViewer.cshtml.g.cs
+C:\Users\vlll\Desktop\Finding Job\Itransition\Kursach\KursCollection\KursCollection\obj\Debug\net5.0\Razor\Views\Item\EditItem.cshtml.g.cs

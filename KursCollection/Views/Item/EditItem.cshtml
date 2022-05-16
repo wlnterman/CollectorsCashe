@@ -1,0 +1,147 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using KursCollection.ViewModel;
+@model CollectionWithItemsViewModel
+
+<h2>Edit Item</h2>
+
+<form asp-area="" asp-controller="Item" asp-action="Edit" asp-route-collectionId="@Model.CollectionId" asp-route-id="@Model.Items.First().ItemId" method="post">
+
+    <table id="mytable" class="table; modal-body">
+        <tr>
+            <th><label>Item Name:</label></th>
+            <th><input name="itemName" value="@Model.Items.First().ItemName" /></th>
+        </tr>
+        @*<tr>
+            <th><label>Fix Item Tags:</label></th>
+            <th><input /></th>
+        </tr>*@
+
+        @if (Model.ItemInt1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemInt1 (int)</label></th>
+                <th><input required type="number" name="itemInt1" value="@Model.Items.First().ItemInt1"/></th>
+            </tr>
+        }
+        @if (Model.ItemInt2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemInt2 (int)</label></th>
+                <th><input type="number" name="itemInt2" value="@Model.Items.First().ItemInt2"/></th>
+            </tr>
+        }
+        @if (Model.ItemInt3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemInt3 (int)</label></th>
+                <th><input required type="number" name="itemInt3" value="@Model.Items.First().ItemInt3"/></th>
+            </tr>
+        }
+
+        @if (Model.ItemStr1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemStr1 (string)</label></th>
+                <th><input required name="itemStr1" value="@Model.Items.First().ItemStr1"/></th>
+            </tr>
+        }
+        @if (Model.ItemStr2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemStr2 (string)</label></th>
+                <th><input required name="itemStr2" value="@Model.Items.First().ItemStr2"/></th>
+            </tr>
+        }
+        @if (Model.ItemStr3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemStr3 (string)</label></th>
+                <th><input required name="itemStr3" value="@Model.Items.First().ItemStr3"/></th>
+            </tr>
+        }
+
+        @if (Model.ItemTxt1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemTxt1 (text)</label></th>
+                <th><input required name="itemTxt1" value="@Model.Items.First().ItemTxt1"/></th>
+            </tr>
+        }
+        @if (Model.ItemTxt2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemTxt2 (text)</label></th>
+                <th><input required name="itemTxt2" value="@Model.Items.First().ItemTxt2"/></th>
+            </tr>
+        }
+        @if (Model.ItemTxt3 != null)
+        {
+            <tr>
+                <th><label>Model.ItemTxt3 (text)</label></th>
+                <th><input required name="itemTxt3" value="@Model.Items.First().ItemTxt3"/></th>
+            </tr>
+        }
+
+        @if (Model.ItemDate1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemDate1 (Date)</label></th>
+                <th><input required type="datetime-local" name="itemDate1" value="@Model.Items.First().ItemDate1.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')"/></th>
+            </tr>
+        }
+        @if (Model.ItemDate2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemDate2 (Date)</label></th>
+                <th><input required type="datetime-local" name="itemDate2" value="@Model.Items.First().ItemDate2.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')"/></th>
+            </tr>
+        }
+        @if (Model.ItemDate3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemDate3 (Date)</label></th>
+                <th><input required type="datetime-local" name="itemDate3" value="@Model.Items.First().ItemDate3.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')"/></th>
+            </tr>
+        }
+
+        @if (Model.ItemCheckBox1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemCheckBox1 (checkbox)</label></th>
+                <th><input required type="checkbox" name="itemCheckBox1" checked="@Model.Items.First().ItemCheckBox1"/></th>
+            </tr>
+        }
+        @if (Model.ItemCheckBox2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemCheckBox2 (checkbox)</label></th>
+                <th><input required type="checkbox" name="itemCheckBox2" checked="@Model.Items.First().ItemCheckBox2"/></th>
+            </tr>
+        }
+        @if (Model.ItemCheckBox3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemCheckBox3 (checkbox)</label></th>
+                <th><input required type="checkbox" name="itemCheckBox3" checked="@Model.Items.First().ItemCheckBox3"/></th>
+            </tr>
+        }
+
+    </table>
+    <div class="modal-footer">
+        <input type="hidden" name="collectionId" value="@Model.CollectionId" />
+        <input type="hidden" name="itemId" value="@Model.Items.First().ItemId" />
+
+        <a class="btn btn-secondary" asp-area="" asp-controller="Item" asp-action="ShowCollectionItemsCWI" asp-route-collectionId="@Model.CollectionId">Cancel</a>
+        @*<a type="submit" class="btn btn-primary"   asp-area="" asp-controller="Collection" asp-action="ShowUserCollections">Create Collection</a>*@
+        @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
+
+<script>
+    var simplemde = new SimpleMDE({ element: $("#description")[0] });
+</script>

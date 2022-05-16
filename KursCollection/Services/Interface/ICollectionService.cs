@@ -9,6 +9,7 @@ namespace KursCollection.Services.Interface
 {
     public interface ICollectionService
     {
+        IEnumerable<CollectionWithItemsViewModel> GetCollectionTop3VMList();
         IEnumerable<CollectionViewModel> GetCollectionVMList();
         UserWithCollectionsViewModel GetCollectionList();
         IEnumerable<CollectionViewModel> GetUserCollectionVMList(int id);

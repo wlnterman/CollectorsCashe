@@ -4,22 +4,339 @@
 @{
 }
 @using KursCollection.ViewModel;
-@model ItemViewModel;
+@model CollectionWithItemCLViewModel//ItemWithCommentsLikesViewModel;
+
 <br>
-@*<h3>--- Draw what you whant ---</h3>*@
-<h3>@Model.ItemName</h3>
+<a class="btn btn-primary" href="@Url.Action("ShowCollectionItemsCWI", "Item", new { collectionId = Model.CollectionId} )">˂- Back to collection</a>
+@if (User.Identity.IsAuthenticated && ViewBag.OwnerRights)
+{
+    <a class="btn btn-primary;" href="@Url.Action("EditItem", "Item", new { collectionId = Model.CollectionId, id = Model.Items.ItemId} )"> Edit Item</a>
+}
 
-<p>technical works</p>
-<div style=" background-color:gray; border-width: 5px; border-color:black; align-content: center">
-    <canvas></canvas>
+<div>
+    @*<div style="display:inline-block; margin:10px">
+            <h3>@Model.Items.ItemName collections</h3>
+            <div style="display: inline-block; margin:5px;">
+                <p> something</p>
+            </div>
+            <div style="display:inline-block; margin:5px;">
+                <p>Tags: </p>
+            </div>
+            <div style="max-width: 300px; word-wrap: break-word;">
+                <p style="display: inline; ">Description: </p>
+            </div>
+        </div>*@
+    <br />
+
+    <table id="mytable" style="display: inline-block; " class="table; modal-body">
+        <h3>@Model.Items.ItemName</h3>
+        <tr>
+            @if (Model.ItemInt1 != null)
+            {
+                <th><label>@Model.ItemInt1:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemInt1</label></th>
+            }
+            @if (Model.ItemInt2 != null)
+            {
+                <th><label>@Model.ItemInt2:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemInt2</label></th>
+            }
+            @if (Model.ItemInt3 != null)
+            {
+                <th><label>@Model.ItemInt3:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemInt3</label></th>
+            }
+        </tr>
+        <tr>
+
+            @if (Model.ItemStr1 != null)
+            {
+                <th><label>@Model.ItemStr1:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemStr1</label></th>
+            }
+            @if (Model.ItemStr2 != null)
+            {
+                <th><label>@Model.ItemStr2:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemStr2</label></th>
+            }
+            @if (Model.ItemStr3 != null)
+            {
+                <th><label>@Model.ItemStr3:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemStr3</label></th>
+            }
+        </tr>
+        <tr>
+            @if (Model.ItemTxt1 != null)
+            {
+                <th><label>@Model.ItemTxt1:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemTxt1</label></th>
+            }
+            @if (Model.ItemTxt2 != null)
+            {
+                <th><label>@Model.ItemTxt2:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemTxt2</label></th>
+            }
+            @if (Model.ItemTxt3 != null)
+            {
+                <th><label>Model.ItemTxt3:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemTxt3</label></th>
+            }
+        </tr>
+        <tr>
+            @if (Model.ItemDate1 != null)
+            {
+                <th><label>@Model.ItemDate1:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemDate1.ToString("dd-MM-yyyy")</label></th>
+            }
+            @if (Model.ItemDate2 != null)
+            {
+                <th><label>@Model.ItemDate2:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemDate2.ToString("dd-MM-yyyy")</label></th>
+            }
+            @if (Model.ItemDate3 != null)
+            {
+                <th><label>@Model.ItemDate3:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemDate3.ToString("dd-MM-yyyy")</label></th>
+            }
+        </tr>
+        <tr>
+            @if (Model.ItemCheckBox1 != null)
+            {
+                <th><label>@Model.ItemCheckBox1:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemCheckBox2</label></th>
+            }
+            @if (Model.ItemCheckBox2 != null)
+            {
+                <th><label>@Model.ItemCheckBox2:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemCheckBox2</label></th>
+            }
+            @if (Model.ItemCheckBox3 != null)
+            {
+                <th><label>@Model.ItemCheckBox3:</label></th>
+                <th><label style=" margin-left:8px; ">@Model.Items.ItemCheckBox3</label></th>
+            }
+        </tr>
+    </table>
+</div>
+
+@*<div style=" background-color:gray; border-width: 5px; border-color:black; align-content: center">
+        <canvas></canvas>
+    </div>*@
+
+<div>
+    @if (ViewBag.HasUserLike)
+    {
+        <button class="btn" id="like">
+            <div style="width: 27px; height: 27px; background-color: crimson; border-radius: 50%; display: inline-block; text-align: center "> 🤍</div>
+        </button>
+        <div style="display:inline-block;">@Model.Items.Likes.Count()</div>
+    }
+    else
+    {
+        <button class="btn" id="like">
+            <div style="width: 27px; height: 27px; background-color: lightgrey; border-radius: 50%; display: inline-block; text-align: center">  <i class="fa fa-heart"></i></div>
+        </button>
+        <div style="display:inline-block;">@Model.Items.Likes.Count()</div>
+    }
 </div>
 
 
-<p>likebutton</p>
-<p>comments</p>
+
+@*&#9825;
+    🤍*@
+<br>
+<p>Comments:</p>
+<hr />
+
+@foreach (var comment in Model.Items.Comments)
+{
+    <div>
+        <div></div>
+        <div><b>@comment.UserName</b></div>
+        <div>@comment.CommentText </div>
+        <div>@comment.CommentDate </div>
+        <div></div>
+        <hr />
+    </div>
+}
+
+@*@if (User.Identity.IsAuthenticated) //https://stackoverflow.com/questions/51663170/how-can-i-post-a-comment-in-net-core-mvc
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="CreateComment" asp-controller="Item" asp-route-collectionId="@Model.CollectionId" asp-route-id="@Model.Items.ItemId">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input name="AppUserId" class="form-control" value="1" />
+                <input name="ItemId" type="hidden" class="form-control" value="@Model.Items.ItemId" />
+                <div class="form-group">
+                    <label>Add Comment</label>
+                    <input name="CommentText" class="form-control" placeholder="Write comment..." />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Comment" class="btn btn-primary" />
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+}*@
+
+<div id="chatroom"></div>
+<br />
+@if (User.Identity.IsAuthenticated)
+{
+    <label>Add Comment</label>
+    <div id="inputForm">
+        <div class="form-group">
+            <input class="form-control" style="max-width:350px" type="text" id="message" placeholder="Write comment..." />
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="button" id="sendBtn" value="Comment" />
+        </div>
+
+    </div>
+}
+@*<div id="inputForm">
+    <input type="text" id="message" placeholder="Write comment..."/>
+    <input class="btn btn-primary" type="button" id="sendBtn" value="Отправить" />
+</div>*@
 
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script>
+
+
+    function getDate() {
+        return new Date();
+    }
+
+    function drawComment(UserName, CommentText, Date) {
+        var date = getDate();
+        var dateStr =
+            ("00" + (date.getMonth() + 1)).slice(-2) + "." +
+            ("00" + date.getDate()).slice(-2) + "." +
+            date.getFullYear() + " " +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+        console.log(dateStr);
+    return '<div>' +
+        '<div></div>' +
+        '<div><b>' + UserName + '</b></div>' +
+        '<div>' + CommentText + ' </div>' +
+        '<div>' + dateStr + ' </div>' +
+        '<div></div>' +
+        '<hr />' +
+        '</div>';
+    }
+
+    function createElementFromHTML(htmlString) {
+        var div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+
+        // Change this to div.childNodes to support multiple top-level nodes.
+        return div.firstChild;
+    }
+
+    const hubConnection = new signalR.HubConnectionBuilder()
+    .withUrl("/comment")
+    .build();
+    let userName = "";
+    // получение сообщения от сервера
+    hubConnection.on("Receive", function (userName, message, time) {
+
+        
+        let result = drawComment(userName, message, time)
+        console.log(result)
+
+        let result2 = createElementFromHTML(result)
+        console.log(result2)
+
+        // создаем элемент <b> для имени пользователя
+        let userNameElem = document.createElement("b");
+        userNameElem.appendChild(document.createTextNode(userName + ": "));
+
+        // создает элемент <p> для сообщения пользователя
+        let elem = document.createElement("p");
+        elem.appendChild(userNameElem);
+        elem.appendChild(document.createTextNode(message));
+
+        let elem2 = document.createElement("p");
+        elem2.appendChild(elem);
+        elem2.appendChild(document.createTextNode(time));
+
+        console.log(elem2)
+        var firstElem = document.getElementById("chatroom").firstChild;
+        document.getElementById("chatroom").appendChild(result2)
+            /*document.getElementById("chatroom").insertBefore(result2, firstElem);*/
+
+    });
+
+    @*document.getElementById("loginBtn").addEventListener("click", function (e) {
+    userName = document.getElementById("userName").value;
+    hubConnection.invoke("Enter", @Model.ItemId);
+    });*@
+
+    // отправка сообщения на сервер
+    document.getElementById("sendBtn").addEventListener("click", function (e) {
+    let message = document.getElementById("message").value;
+    hubConnection.invoke("Send", @Model.Items.ItemId, message);
+    });
+
+
+    hubConnection.start().then(() => {
+    // установка имени группы
+    hubConnection.invoke("Enter",@Model.Items.ItemId);
+    });
+
+</script>
+
+<script>
+
+    function refreshPage() {
+    location.reload(true);
+    }
+
+    $(document).ready(function() {
+
+    $('#like').on('click', function (e) {
+        var checkedArray = [];
+        $('input:checkbox:checked').each(function () {
+            checkedArray.push(parseInt($(this).attr("id")));
+        })
+        console.log(checkedArray);
+
+        $.ajax({
+
+            url: "@Url.Action("Like", "Item", new { collectionId = Model.CollectionId, itemId = @Model.Items.ItemId} )",
+            type: "post",
+            dataType: "json",
+            contextType: "application/json",
+            data: { itemId : @Model.Items.ItemId },
+            traditional: true,
+            success: function (data) {
+                console.log('Данные отправлены');
+                location.reload(true);
+            }
+        });
+
+        $('body input:checkbox').prop('checked', false);
+    });
+    })
+
+
+    @*$.ajax({
+
+    url: "@Url.Action("GetUserNameByID", "AppUser" )",
+    type: "get",
+    dataType: "json",
+    contextType: "application/json",
+    data: { id : @comment.UserId },
+    traditional: true,
+    success: function (data) {
+        console.log('Данные отправлены');
+        location.reload(true);
+    }
+    });*@
+</script>

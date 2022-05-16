@@ -15,27 +15,92 @@
         </tr>
         <tr>
             <th><label>Description:</label></th>
-            <th><input name="collectionDescription" /></th>
+            <th><input id="description" name="collectionDescription" /></th>
         </tr>
         <tr>
             <th><label>Theme:</label></th>
-            <th>@*<input name="collectionTheme" />*@</th>
+            <th>
+                <select id="theme" name="themeId">
+                    @foreach (var theme in @ViewBag.Themes)
+                    {
+                        <option value="@theme.ThemeId">@theme.ThemeId</option>
+                    }
+                </select>
+            </th>
+        </tr>
 
+        <tr>
+            <th><label>Integer value 1:</label></th>
+            <th><input name="itemInt1" /></th>
+        </tr>
+        <tr>
+            <th><label>Integer value 2</label></th>
+            <th><input name="itemInt2" /></th>
+        </tr>
+        <tr>
+            <th><label>Integer value 3</label></th>
+            <th><input name="itemInt3" /></th>
+        </tr>
+
+        <tr>
+            <th><label>String value 1</label></th>
+            <th><input name="itemStr1" /></th>
+        </tr>
+        <tr>
+            <th><label>String value 2</label></th>
+            <th><input name="itemStr2" /></th>
+        </tr>
+        <tr>
+            <th><label>String value 3</label></th>
+            <th><input name="itemStr3" /></th>
+        </tr>
+
+        <tr>
+            <th><label>Text value 1</label></th>
+            <th><input name="itemTxt1" /></th>
+        </tr>
+        <tr>
+            <th><label>Text value 2</label></th>
+            <th><input name="itemTxt2" /></th>
+        </tr>
+        <tr>
+            <th><label>Text value 3</label></th>
+            <th><input name="itemTxt3" /></th>
+        </tr>
+
+        <tr>
+            <th><label>Date value 1</label></th>
+            <th><input name="itemDate1" /></th>
+        </tr>
+        <tr>
+            <th><label>Date value 2</label></th>
+            <th><input name="itemDate2" /></th>
+        </tr>
+        <tr>
+            <th><label>Date value 3</label></th>
+            <th><input name="itemDate3" /></th>
+        </tr>
+
+        <tr>
+            <th><label>Checkbox value 1</label></th>
+            <th><input name="itemCheckBox1" /></th>
+        </tr>
+        <tr>
+            <th><label>Checkbox value 2</label></th>
+            <th><input name="itemCheckBox2" /></th>
+        </tr>
+        <tr>
+            <th><label>Checkbox value 3</label></th>
+            <th><input name="itemCheckBox3" /></th>
         </tr>
     </table>
     @*<h3>В списке @ViewBag.Themes.Count элемента:</h3>*@
-
-    <select id="phone" name="themeId">
-        @foreach (var theme in @ViewBag.Themes)
-        {
-            <option value="@theme.ThemeId">@theme.ThemeId</option>
-        }
-    </select>
+    
     <div class="modal-body">
         <label>Collection Image (optional)</label>
         <input id="imagelink" type="hidden" name="collectionImageLink" value="https://res.cloudinary.com/winterman/image/upload/v1652211433/oeqwxinejxvwgzsaahxe.png" />
         <div id="drop-area">
-            <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+            <p>Upload file with the file dialog or by dragging and dropping images onto the dashed region</p>
             <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
             <label class="button" for="fileElem">Select some files</label>
             <div id="gallery"></div>
@@ -49,12 +114,16 @@
 
     <div class="modal-footer">
 
-        <a class="btn btn-secondary" asp-area="" asp-controller="Collection" asp-action="ShowUserCollections">Cancel</a>
+        <a class="btn btn-secondary" asp-area="" asp-controller="Collection" asp-action="ShowAuthorizedUserCollections">Cancel</a>
         @*<a type="submit" class="btn btn-primary"   asp-area="" asp-controller="Collection" asp-action="ShowUserCollections">Create Collection</a>*@
         @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
         <button type="submit" class="btn btn-primary">Create Collection</button>
     </div>
 </form>
+
+<script>
+    var simplemde = new SimpleMDE({ element: $("#description")[0] });
+</script>
 
 <script>
     let dropArea = document.getElementById('drop-area')

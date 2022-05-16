@@ -2,7 +2,135 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome Home Sempai</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@using KursCollection.ViewModel;
+@model IEnumerable<CollectionViewModel>
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .bg {
+        /* The image used */
+        background-image: url("https://html5css.ru/howto/img_parallax.jpg");
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div class="bg">
+    <br />
+    <div class="text-center">
+        <span class="display-4" style="background-color: #111; color: #fff; padding: 13px; font-size: 45px; letter-spacing: 10px; opacity: 0.65; ">Welcome to Collectors Cashe</span>
+        <br />
+        <br />
+        <br />
+        <span style="background-color: #111; color: #fff; padding: 13px; font-size: 25px; letter-spacing: 10px; opacity: 0.65; ">A convient storage solution for your collections </span>
+    </div>
+    <br />
+    <br />
+    <br />
+    <span style="background-color: grey; padding: 7px; margin: 13px; opacity: 0.8; font-size: 30px; ">Top item collections</span>
+    <br />
+    <div class="flex-container">
+
+        @foreach (var collection in Model)
+        {
+            <div class="column nature">
+                <a href="@Url.Action("ShowCollectionItemsCWI","Item", new {collectionId = collection.CollectionId})">
+                    <div class="content">
+                        <img src="@collection.CollectionImageLink" alt="Collection image" style="width:100%">
+                        <div style="display: flex; justify-content: space-between; ">
+                            <h4 class="truncate-text" style="max-width: 200px; ">@collection.CollectionName</h4>
+                            <div style="text-align: right;">Theme: @collection.ThemeId</div>
+                        </div>
+                        <p class="truncate-text" style="max-width: 330px; word-wrap: break-word;">@collection.CollectionDescription</p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <br />
+    <span style="background-color: whitesmoke; padding: 7px; margin: 13px; opacity: 0.8; font-size: 30px; ">Last added items</span>
+    <br />
+    <div class="flex-container2">
+
+        @foreach (var item in ViewBag.LastItems)
+        {
+            <div class="column nature">
+                <a href="@Url.Action("ShowOneItem","Item", new {collectionId = item.CollectionId, id = @item.ItemId})">
+                    <div class="content">
+
+                        <h4 class="truncate-h4" style="max-width: 200px; ">@item.CollectionName</h4>
+                        <div>Name: @item.ItemName</div>
+                        @*<div>Tags(itemId): @item.ItemId </div>*@
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+
 </div>
+<style>
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        /*background-color: #f1f1f1;*/ /*DodgerBlue;*/
+    }
+
+        .flex-container > div {
+            background-color: white;
+
+            width: 350px;
+            margin: 10px;
+            /*text-align: center;
+            line-height: 75px;
+            font-size: 30px;*/
+        }
+
+    .flex-container2 {
+        display: flex;
+        flex-wrap: wrap;
+        /*background-color: #f1f1f1;*/ /*DodgerBlue;*/
+    }
+
+        .flex-container2 > div {
+            background-color: white;
+            width: 165px;
+            margin: 10px;
+            /*text-align: center;
+            line-height: 75px;
+            font-size: 30px;*/
+        }
+
+    .column {
+        float: left;
+        width: 33.33%;
+        /*display: none;*/ /* Hide columns by default */
+    }
+
+    .content {
+        background-color: white;
+        padding: 10px;
+    }
+
+    .truncate-h4 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    .truncate-text {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+</style>

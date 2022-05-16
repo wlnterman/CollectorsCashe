@@ -32,26 +32,27 @@ namespace KursCollection.Data
 
             base.OnModelCreating(modelBuilder);     //https://stackoverflow.com/questions/40703615/the-entity-type-identityuserloginstring-requires-a-primary-key-to-be-defined
 
-            modelBuilder.Entity<Comment>()          //https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete
+            modelBuilder.Entity<Collection>()          //https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete
                 .HasOne(u => u.AppUser)
-                .WithMany(c => c.Comments)
+                .WithMany(c => c.Collections)
+                //.WillCascadeOnDelete(true);
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<Like>()
-                .HasOne(u => u.AppUser)
-                .WithMany(l => l.Likes)
-                .OnDelete(DeleteBehavior.ClientCascade);
+            //modelBuilder.Entity<Like>()
+            //    .HasOne(u => u.AppUser)
+            //    .WithMany(l => l.Likes)
+            //    .OnDelete(DeleteBehavior.ClientCascade);
 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("" +
-                "Host=ec2-52-30-67-143.eu-west-1.compute.amazonaws.com;" +
+                "Host=" + Environment.GetEnvironmentVariable("DBHost") + ";" +
                 "Port=5432;" +
-                "Database=dehep17tvubrp5;" +
-                "Username=gxsjgrvjkfhlhz;" +
-                "Password=abfbc336ffd5c3c0a84ce64b21ff3a0b2399dd480d70d8d6777ccb5f6ff6973e;" +
+                "Database=" + Environment.GetEnvironmentVariable("DBDatabase") + ";" +
+                "Username=" + Environment.GetEnvironmentVariable("DBUsername") + ";" +
+                "Password=" + Environment.GetEnvironmentVariable("DBPassword") + ";" +
                 "sslmode=Require;" +
                 "Trust Server Certificate=true;");
         }

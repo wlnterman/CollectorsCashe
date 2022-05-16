@@ -19,7 +19,7 @@
                 <img src="@Model.CollectionImageLink" alt="Collection image">
             </div>
             <div style="display:inline-block; margin:10px">
-                <h3>@Model.CollectionName collections</h3>
+                <h3>@Model.CollectionName collection</h3>
                 <div style="display: inline-block; margin:5px;">
                     <p>@Model.Items.Count() items</p>
                 </div>
@@ -34,11 +34,13 @@
         <div>
             <a class="btn btn-primary" href="@Url.Action("ShowUserCollectionsUWC", "Collection", new { id = Model.UserId} )">˂- Back to collection List</a>
             @{
-                if (User.Identity.IsAuthenticated)
+                if (User.Identity.IsAuthenticated && ViewBag.OwnerRights)
                 {
                     <a class="btn btn-primary" href="@Url.Action("CreateItem", "Item", new { collectionId = Model.CollectionId} )">Create new Item</a>
+                    <a class="btn btn-primary;" href="@Url.Action("EditCollection", "Collection", new { UserId = Model.UserId, id = Model.CollectionId} )"> Edit Collection</a>
                     <a class="btn btn-primary; fa fa-trash" href="@Url.Action("DeleteConfirmed", "Collection", new { id = Model.UserId, collectionId = Model.CollectionId} )"> Delete Collection</a>
-                    <a class="btn btn-primary; fa fa-trash" href="@Url.Action("DeleteConfirmed", "Item", new { id = 1, collectionId = Model.CollectionId} )"> Delete top Item</a>
+                    @*<a class="btn btn-primary; fa fa-trash" href="@Url.Action("DeleteConfirmed", "Item", new { id = 1, collectionId = Model.CollectionId} )"> Delete selected Items</a>*@
+                    <button class="btn" id="deleteItems"><i class="fa fa-trash"> Delete selected Items</i></button>
                     @*<button class="btn" id="update"><i class="fa fa-arrow-circle-up"> Edit Collection</i></button>*@
                 }
             }
@@ -48,31 +50,143 @@
                 <thead>
                     <tr>
                         <th><input class="form-check-input" type="checkbox" value="" id="checkbox"> check all</th>
-                        <th>ItemId</th>
-                        <th>CollectionId</th>
+                        @*<th>ItemId</th>
+                        <th>CollectionId</th>*@
                         <th>Name</th>
-                        <th>FIX TAGS</th>
-                        <th>FIX Optional 1</th>
-                        <th>FIX Optional 2</th>
-                        <th>...</th>
-                        <th>FIX Optional 15</th>
+                        @*<th>FIX TAGS</th>*@
+                        @if (Model.ItemInt1 != null) //-------------integer
+                        {
+                            <th>@Model.ItemInt1</th>
+                        }
+                        @if (Model.ItemInt2 != null)
+                        {
+                            <th>@Model.ItemInt2</th>
+                        }
+                        @if (Model.ItemInt3 != null)
+                        {
+                            <th>@Model.ItemInt3</th>
+                        }
+                        @if (Model.ItemStr1 != null)//-------------string
+                        {
+                            <th>@Model.ItemStr1</th>
+                        }
+                        @if (Model.ItemStr2 != null)
+                        {
+                            <th>@Model.ItemStr2</th>
+                        }
+                        @if (Model.ItemStr3 != null)
+                        {
+                            <th>@Model.ItemStr3</th>
+                        }
+                        @if (Model.ItemTxt1 != null)//-------------text
+                        {
+                            <th>@Model.ItemTxt1</th>
+                        }
+                        @if (Model.ItemTxt2 != null)
+                        {
+                            <th>@Model.ItemTxt2</th>
+                        }
+                        @if (Model.ItemTxt3 != null)
+                        {
+                            <th>@Model.ItemTxt3</th>
+                        }
+                        @if (Model.ItemDate1 != null)//-------------date
+                        {
+                            <th>@Model.ItemDate1</th>
+                        }
+                        @if (Model.ItemDate2 != null)
+                        {
+                            <th>@Model.ItemDate2</th>
+                        }
+                        @if (Model.ItemDate3 != null)
+                        {
+                            <th>@Model.ItemDate3</th>
+                        }
+                        @if (Model.ItemCheckBox1 != null)//-------------checkbox
+                        {
+                            <th>@Model.ItemCheckBox1</th>
+                        }
+                        @if (Model.ItemCheckBox2 != null)
+                        {
+                            <th>@Model.ItemCheckBox2</th>
+                        }
+                        @if (Model.ItemCheckBox3 != null)
+                        {
+                            <th>@Model.ItemCheckBox3</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model.Items)
                     {
-                        <tr>
-                            <td align="center"><input class="form-check-input child" type="checkbox" value="" id=@item.ItemId></td>
-                            <td>@item.ItemId </td>
-                            <td>@item.CollectionId </td>
-                            <td>@item.ItemName </td>
-                            <td>Taglist</td>
-                            <td>int 1</td>
-                            <td>text1</td>
-                            <td>Date1</td>
-                            <td>check1</td>
-                        </tr>
+                    <tr>
+                        <td align="center"><input class="form-check-input child" type="checkbox" value="" id=@item.ItemId></td>
+                        @*<td>@item.ItemId </td>
+                        <td>@item.CollectionId </td>*@
+                        <td><a href="@Url.Action("ShowOneItem","Item", new {collectionId = Model.CollectionId, id = @item.ItemId})">@item.ItemName </td>
+                        @*<td>Taglist</td>*@
+                        @if (Model.ItemInt1 != null) //-------------integer
+                        {
+                            <th>@item.ItemInt1</th>
+                        }
+                        @if (Model.ItemInt2 != null)
+                        {
+                            <th>@item.ItemInt2</th>
+                        }
+                        @if (Model.ItemInt3 != null)
+                        {
+                            <th>@item.ItemInt3</th>
+                        }
+                        @if (Model.ItemStr1 != null)//-------------string
+                        {
+                            <th>@item.ItemStr1</th>
+                        }
+                        @if (Model.ItemStr2 != null)
+                        {
+                            <th>@item.ItemStr2</th>
+                        }
+                        @if (Model.ItemStr3 != null)
+                        {
+                            <th>@item.ItemStr3</th>
+                        }
+                        @if (Model.ItemTxt1 != null)//-------------text
+                        {
+                            <th>@item.ItemTxt1</th>
+                        }
+                        @if (Model.ItemTxt2 != null)
+                        {
+                            <th>@item.ItemTxt2</th>
+                        }
+                        @if (Model.ItemTxt3 != null)
+                        {
+                            <th>@item.ItemTxt3</th>
+                        }
+                        @if (Model.ItemDate1 != null)//-------------date
+                        {
+                            <th>@item.ItemDate1.ToString("dd-MM-yyyy")</th>
+                        }
+                        @if (Model.ItemDate2 != null)
+                        {
+                            <th>@item.ItemDate2.ToString("dd-MM-yyyy")</th>
+                        }
+                        @if (Model.ItemDate3 != null)
+                        {
+                            <th>@item.ItemDate3.ToString("dd-MM-yyyy")</th>
+                        }
+                        @if (Model.ItemCheckBox1 != null)//-------------checkbox
+                        {
+                            <th>@item.ItemCheckBox1</th>
+                        }
+                        @if (Model.ItemCheckBox2 != null)
+                        {
+                            <th>@item.ItemCheckBox2</th>
+                        }
+                        @if (Model.ItemCheckBox3 != null)
+                        {
+                            <th>@item.ItemCheckBox3</th>
+                        }
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -109,6 +223,30 @@
                     $('#checkbox').prop('checked', false)
                 }
             })
+
+            $('#deleteItems').on('click', function (e) {
+            var checkedArray = [];
+            $('input:checkbox:checked').each(function () {
+                checkedArray.push(parseInt($(this).attr("id")));
+            })
+            console.log(checkedArray);
+
+            $.ajax({
+
+                url: "@Url.Action("DeleteItems", "Item", new { collectionId = Model.CollectionId} )",
+                type: "get",
+                dataType: "json",
+                contextType: "application/json",
+                data: { selectedIds: checkedArray },
+                traditional: true,
+                success: function (data) {
+                    console.log('Данные отправлены');
+                    location.reload(true);
+                }
+            });
+
+            $('body input:checkbox').prop('checked', false);
+        });
         })
-    </script >
+    </script>
 </html>

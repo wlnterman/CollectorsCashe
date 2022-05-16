@@ -1,0 +1,150 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using KursCollection.ViewModel;
+@model CollectionViewModel//UserWithCollectionsViewModel
+<h2>Edit collection</h2>
+
+<form asp-controller="Collection" asp-action="Edit" asp-route-id="@Model.UserId" method="post">
+    <table id="mytable" class="table; modal-body">
+        <tr>
+            <th><label>Collection Name:</label></th>
+            <th><input name="collectionName" value="@Model.CollectionName"/></th>
+        </tr>
+        <tr>
+            <th><label>Description:</label></th>
+            <th><input id="description" name="collectionDescription" value="@Model.CollectionDescription"/></th>
+        </tr>
+        <tr>
+            <th><label>Theme:</label></th>
+            <th>@*<input name="collectionTheme" />*@</th>
+
+        </tr>
+    </table>
+    @*<h3>В списке @ViewBag.Themes.Count элемента:</h3>*@
+
+<select id="themes" name="themeId">
+    @foreach (var theme in @ViewBag.Themes)
+    {
+        if (@theme.ThemeId == @Model.ThemeId)
+        {
+            <option value="@theme.ThemeId" selected>@theme.ThemeId</option>
+        }
+        else
+        {
+            <option value="@theme.ThemeId">@theme.ThemeId</option>
+        }
+
+    }
+</select>
+    <div class="modal-body">
+        <label>Collection Image (optional)</label>
+        <input type="hidden" name="collectionId" value="@Model.CollectionId" />
+        <input type="hidden" name="userId" value="@Model.UserId" />
+        <input id="imagelink" type="hidden" name="collectionImageLink" value="@Model.CollectionImageLink" />
+        <div id="drop-area">
+            <p>Upload file with the file dialog or by dragging and dropping images onto the dashed region</p>
+            <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+            <label class="button" for="fileElem">Select some files</label>
+            <div id="gallery"></div>
+        </div>
+
+        <div class="createMenuInput">
+            Add Optional Fields Here!!!!:
+            <input />
+        </div>
+    </div>
+
+    <div class="modal-footer">
+
+        <a class="btn btn-secondary" asp-area="" asp-controller="Collection" asp-action="ShowAuthorizedUserCollections">Cancel</a>
+        @*<a type="submit" class="btn btn-primary"   asp-area="" asp-controller="Collection" asp-action="ShowUserCollections">Create Collection</a>*@
+        @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
+
+<script>
+    var simplemde = new SimpleMDE({ element: $("#description")[0] });
+</script>
+
+<script>
+    let dropArea = document.getElementById('drop-area')
+
+    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+    })
+
+    function preventDefaults(e) {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    ;['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+    })
+
+    ;['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false)
+    })
+
+    function highlight(e) {
+        dropArea.classList.add('highlight')
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight')
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false)
+
+    function handleDrop(e) {
+        let dt = e.dataTransfer
+        let files = dt.files
+
+        handleFiles(files)
+    }
+
+    function handleFiles(files) {
+        files = [...files]
+        files.forEach(uploadFile)
+        files.forEach(previewFile)
+    }
+
+    function uploadFile(file) {
+
+        var fd = new FormData();
+        fd.append('file', file);
+
+
+        var pathname = window.location.pathname;
+        var id = pathname.split('/')[2];
+        console.log(pathname);
+        console.log(id);
+
+
+        $.ajax({
+            url: 'uploadimage',
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                console.log(data.url);
+                $('#imagelink').val(data.url)
+            }
+        });
+    }
+
+    function previewFile(file) {
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = function () {
+            let img = document.createElement('img')
+            img.src = reader.result
+            document.getElementById('gallery').appendChild(img)
+        }
+    }
+</script>

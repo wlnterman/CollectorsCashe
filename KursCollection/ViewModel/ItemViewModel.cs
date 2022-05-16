@@ -14,6 +14,7 @@ namespace KursCollection.ViewModel
         public int ItemId { get; set; }
 
         public int CollectionId { get; set; }
+        public String CollectionName { get; set; }
 
         public String ItemName { get; set; }
 

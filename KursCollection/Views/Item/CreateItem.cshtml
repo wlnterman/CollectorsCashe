@@ -9,26 +9,143 @@
 <h2>Create new Item</h2>
 
 <form asp-area="" asp-controller="Item" asp-action="Create" asp-route-collectionId="@Model.CollectionId" method="post">
+    <table id="mytable" class="table; modal-body">
+        <tr>
+            <th><label>Item Name:</label></th>
+            <th><input required name="itemName" /></th>
+        </tr>
+        @*<tr>
+            <th><label>Fix Item Tags:</label></th>
+            <th><input required name="itemName"/></th>
+        </tr>*@
 
-    <div class="modal-body">
-        <div class="createMenuInput">
-            <label>Item Name:</label>
-            <input name="itemName" />
-        </div>
-        <div class="createMenuInput">
-            <label>Fix Item Tags:</label>
-            <input />
-        </div>
-        <div class="createMenuInput">
-            Add Optional Fields Here!!!!:
-            <input />
-        </div>
-    </div>
+
+        @if (Model.ItemInt1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemInt1 (int)</label></th>
+                <th><input required type="number" name="itemInt1" /></th>
+            </tr>
+        }
+        @if (Model.ItemInt2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemInt2 (int)</label></th>
+                <th><input type="number" name="itemInt2" /></th>
+            </tr>
+        }
+        @if (Model.ItemInt3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemInt3 (int)</label></th>
+                <th><input required type="number" name="itemInt3" /></th>
+            </tr>
+        }
+
+        @if (Model.ItemStr1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemStr1 (string)</label></th>
+                <th><input required name="itemStr1" /></th>
+            </tr>
+        }
+        @if (Model.ItemStr2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemStr2 (string)</label></th>
+                <th><input required name="itemStr2" /></th>
+            </tr>
+        }
+        @if (Model.ItemStr3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemStr3 (string)</label></th>
+                <th><input required name="itemStr3" /></th>
+            </tr>
+        }
+
+        @if (Model.ItemTxt1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemTxt1 (text)</label></th>
+                <th><input required name="itemTxt1" /></th>
+            </tr>
+        }
+        @if (Model.ItemTxt2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemTxt2 (text)</label></th>
+                <th><input required name="itemTxt2" /></th>
+            </tr>
+        }
+        @if (Model.ItemTxt3 != null)
+        {
+            <tr>
+                <th><label>Model.ItemTxt3 (text)</label></th>
+                <th><input required name="itemTxt3" /></th>
+            </tr>
+        }
+
+        @if (Model.ItemDate1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemDate1 (Date)</label></th>
+                <th><input required type="datetime-local" name="itemDate1" /></th>
+            </tr>
+        }
+        @if (Model.ItemDate2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemDate2 (Date)</label></th>
+                <th><input required type="datetime-local" name="itemDate2" /></th>
+            </tr>
+        }
+        @if (Model.ItemDate3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemDate3 (Date)</label></th>
+                <th><input required type="datetime-local" name="itemDate3" /></th>
+            </tr>
+        }
+
+        @if (Model.ItemCheckBox1 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemCheckBox1 (checkbox)</label></th>
+                <th><input required type="checkbox" name="itemCheckBox1" /></th>
+            </tr>
+        }
+        @if (Model.ItemCheckBox2 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemCheckBox2 (checkbox)</label></th>
+                <th><input required type="checkbox" name="itemCheckBox2" /></th>
+            </tr>
+        }
+        @if (Model.ItemCheckBox3 != null)
+        {
+            <tr>
+                <th><label>@Model.ItemCheckBox3 (checkbox)</label></th>
+                <th><input required type="checkbox" name="itemCheckBox3" /></th>
+            </tr>
+        }
+
+
+
+
+        
+        
+        
+    </table>
     <div class="modal-footer">
 
-        <a class="btn btn-secondary" asp-area="" asp-controller="Item" asp-action="ShowCollectionItems">Cancel</a>
+        <a class="btn btn-secondary" asp-area="" asp-controller="Item" asp-action="ShowCollectionItemsCWI" asp-route-collectionId="@Model.CollectionId">Cancel</a>
         @*<a type="submit" class="btn btn-primary"   asp-area="" asp-controller="Collection" asp-action="ShowUserCollections">Create Collection</a>*@
         @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
         <button type="submit" class="btn btn-primary">Create Item</button>
     </div>
 </form>
+
+<script>
+    var simplemde = new SimpleMDE({ element: $("#description")[0] });
+</script>

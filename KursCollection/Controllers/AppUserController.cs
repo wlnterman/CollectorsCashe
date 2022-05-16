@@ -1,5 +1,6 @@
 ﻿using KursCollection.Data;
 using KursCollection.Models;
+using KursCollection.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,15 +25,26 @@ namespace KursCollection.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        IUserRepository<AppUser> userRepository;
         public AppUserController(SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
             ILogger<HomeController> logger,
-            ApplicationDbContext db)
+            ApplicationDbContext db,
+            IUserRepository<AppUser> urepository)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _context = db;
+            userRepository = urepository;
+        }
+
+        [HttpGet]
+        public string GetUserNameByID(int id)
+        {
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            AppUser user = _context.AppUsers.FirstOrDefault(u => u.UserId == id);
+            return user.UserName;
         }
 
         [HttpPost]
@@ -86,16 +98,23 @@ namespace KursCollection.Controllers
                 if (tmp != null)
                 {
                     var user = await _userManager.FindByEmailAsync(tmp.UserEmail);
+                    var colections = _context.Collections;
+                    var userCollections = colections.Where(collection => collection.AppUserId == tmp.UserId);
+                    var comments = _context.Comments;
+                    var userComments = comments.Where(comment => comment.AppUserId == tmp.UserId);
                     if (user != null)
                     {
+                        //userRepository.Delete(tmp.UserId);
+                        //userRepository.Save();
                         IdentityResult result = await _userManager.DeleteAsync(user);//.GetAwaiter().GetResult();
-
                     }
-
-                    if (user.Email == currentUserEmail)
-                        await _signInManager.SignOutAsync();
+                    //userRepository.Delete(tmp.UserId);
+                    //userRepository.Save();
+                    //if (user.Email == currentUserEmail)
+                    //    await _signInManager.SignOutAsync();
 
                     _context.AppUsers.Remove(tmp);
+                    _context.SaveChanges();
                 }
             }
             

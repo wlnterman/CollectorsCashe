@@ -16,14 +16,51 @@
 <body>
     <div>
         <h3>@Model.UserName collections</h3>
-        @{
-            if (User.Identity.IsAuthenticated)
+        @*@if (User.Identity.IsAuthenticated && ViewBag.OwnerRights)
             {
                 <a class="btn btn-primary" href="@Url.Action("CreateCollection", "Collection", new { id = Model.UserId } )">Create new Collection</a>
+            }*@
+
+        @*<p><a href="@Url.Action("AdminTab", "AppUser" )"> Back to user </a></p>*@
+        <p><a href="@Url.Action("ShowAllCollections", "Collection" )"> Back to collections </a></p>
+
+        <div class="flex-container">
+            @if (User.Identity.IsAuthenticated && ViewBag.OwnerRights)
+            {
+                <div class="column nature">
+                    <a href="@Url.Action("CreateCollection", "Collection", new { id = Model.UserId })">
+                        <div class="content">
+                            <h4><center>Create new Collection</center></h4>
+                            <center><img src="https://telecomdom.com/wp-content/uploads/2021/07/ikonka-plyus-1.png" alt="New Collection"></center>
+                        </div>
+                    </a>
+                </div>
             }
-        }
-        <p><a href="@Url.Action("AdminTab", "AppUser" )"> Back to user </a></p>
-        <table class="table">
+            @foreach (var collection in Model.Collections)
+            {
+                <div class="column nature">
+                    <a href="@Url.Action("ShowCollectionItemsCWI","Item", new {collectionId = collection.CollectionId})">
+                        <div class="content">
+                            <img src="@collection.CollectionImageLink" alt="Collection image" style="width:100%">
+                            <div style="display: flex; justify-content: space-between; ">
+                                <h4 class="truncate-text" style="max-width: 200px; ">@collection.CollectionName</h4>
+                                <div style="text-align: right;">Theme: @collection.ThemeId</div>
+                            </div>
+                            
+                            <p id="@collection.CollectionId" class="truncate-text" style="max-width: 330px; word-wrap: break-word;"></p>
+                            <script>
+                                var converter = new showdown.Converter(),
+                                    text = '@collection.CollectionDescription',
+                                    html = converter.makeHtml(text);
+                                document.getElementById(@collection.CollectionId).innerHTML = html;
+                            </script>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <table class="table" style="display: none">
             <thead>
                 <tr>
                     @*<th><input class="form-check-input" type="checkbox" value="" id="checkbox"> check all</th>*@
@@ -36,7 +73,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach (var collection in Model.Collections)
                 {
                     <tr>
@@ -44,7 +80,7 @@
                         <td>@collection.CollectionId</td>
                         <td>@collection.UserId</td>
                         <td>@collection.CollectionDescription</td>
-                        <td><a href="@Url.Action("ShowCollectionItems","Item", new {collectionId = collection.CollectionId})">@collection.CollectionName</a></td>
+                        <td><a href="@Url.Action("ShowCollectionItemsCWI","Item", new {collectionId = collection.CollectionId})">@collection.CollectionName</a></td>
                         <td>@collection.ThemeId</td>
                         <td><img src="@collection.CollectionImageLink" alt="Collection image"></td>
                     </tr>
@@ -53,12 +89,64 @@
         </table>
         <br>
         <br>
-        @*<p>technical works</p>
-        <div style=" background-color:gray; border-width: 5px; border-color:black; align-content: center">
-            <canvas></canvas>
-        </div>
-        <p>technical works2</p>*@
+
     </div>
+
+ 
+
+    <script>
+        var simplemde = new SimpleMDE({
+            element: $("#description")[0],
+            status: false,
+            toolbar: false,
+            toolbarTips: false,
+        });
+    </script>
+
+
+    <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #f1f1f1; /*DodgerBlue;*/
+        }
+
+            .flex-container > div {
+                background-color: white;
+                #f1f1f1;
+                width: 350px;
+                margin: 10px;
+                /*text-align: center;
+            line-height: 75px;
+            font-size: 30px;*/
+            }
+
+        .column {
+            float: left;
+            width: 33.33%;
+            /*display: none;*/ /* Hide columns by default */
+        }
+
+        .content {
+            background-color: white;
+            padding: 10px;
+        }
+
+        .truncate-h4 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .truncate-text {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+
 </body>
 </html>
 

@@ -10,6 +10,7 @@ namespace KursCollection.ViewModel
     {
         public IEnumerable<ItemViewModel> Items { get; set; }
 
+
         public CollectionWithItemsViewModel() { }
         public CollectionWithItemsViewModel(Collection collection, IEnumerable<Item> items):base(collection)
         {

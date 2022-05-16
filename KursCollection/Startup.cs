@@ -4,6 +4,7 @@ using KursCollection.Repositories;
 using KursCollection.Repositories.Interface;
 using KursCollection.Services;
 using KursCollection.Services.Interface;
+using KursCollection.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -47,10 +48,14 @@ namespace KursCollection
 
             services.AddTransient<ICollectionService, CollectionService>();
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IItemService, ItemService>();
+
+            services.AddSignalR();
 
             services.AddTransient<IUserRepository<AppUser>, UserRepository>();
             services.AddTransient<IRepository<Collection>, CollectionRepository>();
             services.AddTransient<IItemRepository<Item>, ItemRepository>();
+            services.AddTransient<ICommentRepository<Comment>, CommentRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -88,6 +93,8 @@ namespace KursCollection
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<CommentHub>("/comment");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

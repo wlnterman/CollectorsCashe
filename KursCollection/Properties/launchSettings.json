@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -12,17 +12,24 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "DBHost": "ec2-52-30-67-143.eu-west-1.compute.amazonaws.com",
+        "CloudinaryCloud": "winterman",
+        "DBPassword": "abfbc336ffd5c3c0a84ce64b21ff3a0b2399dd480d70d8d6777ccb5f6ff6973e",
+        "DBDatabase": "dehep17tvubrp5",
+        "CloudinaryApiKey": "829351883429128",
+        "DBUsername": "gxsjgrvjkfhlhz",
+        "CloudinaryApiSecret": "mC4IZA2Jksfm2wKN3c06R0klABc",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "KursCollection": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": "true",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }
