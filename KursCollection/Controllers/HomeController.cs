@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace KursCollection.Controllers
 {
     public class HomeController : Controller
@@ -33,6 +34,29 @@ namespace KursCollection.Controllers
             var collection = _context.Collections.FirstOrDefault(c => c.CollectionId == id);
             return collection.CollectionName;
         }
+
+        //public ActionResult ChangeTheme()
+        //{
+        //    if (Request.Cookies["theme"].Value == null)
+        //    {
+        //        Response.Cookies["theme"].Value = "dark";
+        //    }
+        //    else
+        //    {
+        //        if (Request.Cookies["theme"].Value == "dark")
+        //        {
+        //            Response.Cookies["theme"].Value = "light";
+        //        }
+        //        else if (Request.Cookies["theme"].Value == "light")
+        //        {
+        //            Response.Cookies["theme"].Value = "dark";
+        //        }
+        //    }
+
+        //    Response.Redirect(Request.RawUrl);
+        //    return RedirectToAction("Index");
+        //}
+        
 
         public IActionResult Index()
         {

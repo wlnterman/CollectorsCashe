@@ -280,8 +280,10 @@
 
     // отправка сообщения на сервер
     document.getElementById("sendBtn").addEventListener("click", function (e) {
-    let message = document.getElementById("message").value;
-    hubConnection.invoke("Send", @Model.Items.ItemId, message);
+        let message = document.getElementById("message").value;
+        console.log(message.trim())
+        if (message.trim() != "")
+            hubConnection.invoke("Send", @Model.Items.ItemId, message);
     });
 
 

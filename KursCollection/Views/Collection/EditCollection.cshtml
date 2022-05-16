@@ -11,11 +11,11 @@
     <table id="mytable" class="table; modal-body">
         <tr>
             <th><label>Collection Name:</label></th>
-            <th><input name="collectionName" value="@Model.CollectionName"/></th>
+            <th><input name="collectionName" value="@Model.CollectionName" /></th>
         </tr>
         <tr>
             <th><label>Description:</label></th>
-            <th><input id="description" name="collectionDescription" value="@Model.CollectionDescription"/></th>
+            <th><input id="description" name="collectionDescription" value="@Model.CollectionDescription" /></th>
         </tr>
         <tr>
             <th><label>Theme:</label></th>
@@ -25,20 +25,37 @@
     </table>
     @*<h3>В списке @ViewBag.Themes.Count элемента:</h3>*@
 
-<select id="themes" name="themeId">
-    @foreach (var theme in @ViewBag.Themes)
-    {
-        if (@theme.ThemeId == @Model.ThemeId)
-        {
-            <option value="@theme.ThemeId" selected>@theme.ThemeId</option>
-        }
-        else
-        {
-            <option value="@theme.ThemeId">@theme.ThemeId</option>
-        }
+    <input type="hidden" name="ItemInt1" value="@Model.ItemInt1" />
+    <input type="hidden" name="ItemInt2" value="@Model.ItemInt2" />
+    <input type="hidden" name="ItemInt3" value="@Model.ItemInt3" />
+    <input type="hidden" name="ItemStr1" value="@Model.ItemStr1" />
+    <input type="hidden" name="ItemStr2" value="@Model.ItemStr2" />
+    <input type="hidden" name="ItemStr3" value="@Model.ItemStr3" />
+    <input type="hidden" name="ItemTxt1" value="@Model.ItemTxt1" />
+    <input type="hidden" name="ItemTxt2" value="@Model.ItemTxt2" />
+    <input type="hidden" name="ItemTxt3" value="@Model.ItemTxt3" />
+    <input type="hidden" name="ItemDate1" value="@Model.ItemDate1" />
+    <input type="hidden" name="ItemDate2" value="@Model.ItemDate2" />
+    <input type="hidden" name="ItemDate3" value="@Model.ItemDate3" />
+    <input type="hidden" name="ItemCheckBox1" value="@Model.ItemCheckBox1" />
+    <input type="hidden" name="ItemCheckBox2" value="@Model.ItemCheckBox2" />
+    <input type="hidden" name="ItemCheckBox3" value="@Model.ItemCheckBox3" />
 
-    }
-</select>
+
+    <select id="themes" name="themeId">
+        @foreach (var theme in @ViewBag.Themes)
+        {
+            if (@theme.ThemeId == @Model.ThemeId)
+            {
+                <option value="@theme.ThemeId" selected>@theme.ThemeId</option>
+            }
+            else
+            {
+                <option value="@theme.ThemeId">@theme.ThemeId</option>
+            }
+
+        }
+    </select>
     <div class="modal-body">
         <label>Collection Image (optional)</label>
         <input type="hidden" name="collectionId" value="@Model.CollectionId" />
@@ -49,11 +66,6 @@
             <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
             <label class="button" for="fileElem">Select some files</label>
             <div id="gallery"></div>
-        </div>
-
-        <div class="createMenuInput">
-            Add Optional Fields Here!!!!:
-            <input />
         </div>
     </div>
 

@@ -55,6 +55,19 @@
             </div>
         </nav>
     </header>
+    @*<script>
+        if (Request.Cookies["theme"] == null) {
+            <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+        }
+        else {
+            if (Request.Cookies["theme"].Value == "dark") {
+                <link href="~/css/site2.css" rel="stylesheet" type="text/css" />
+            }
+            if (Request.Cookies["theme"].Value == "light") {
+                <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+            }
+        }
+    </script>*@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
